@@ -100,6 +100,27 @@
 
 body{color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;height:100vh;overflow:hidden;user-select:none;font-size: 19px;zoom: 1.5;}
 
+/* ── 無障礙：大字體模式 ──
+   直接加大 zoom（比基準的 1.5 再放大），連按鈕、圖示、觸控熱區一起放大，
+   對長者使用者比單純調 font-size 更有感、也更好點擊。 */
+body.large-text{zoom: 1.9;}
+
+/* ── 無障礙：高對比模式 ──
+   覆寫調色盤變數：純黑背景、純白文字、更亮的強調色與更粗的邊框，
+   大幅提高文字與背景的對比度，改善視力較弱使用者的可讀性。 */
+body.high-contrast{
+  --bg:#000000; --bg2:#000000; --card:#000000; --card2:#0A0A0A;
+  --border:#FFFFFF; --blue:#3B9DFF; --blue2:#7CCBFF; --bluef:#9ED6FF;
+  --white:#FFFFFF; --text:#FFFFFF; --dim:#E6E6E6;
+  --green:#3CFF8F; --red:#FF6B84; --yellow:#FFD54A; --gold:#FFE066; --purple:#D6B3FF;
+}
+body.high-contrast .card,
+body.high-contrast .icon-btn,
+body.high-contrast .btn-ghost,
+body.high-contrast .char-card,
+body.high-contrast .mode-card,
+body.high-contrast .diff-card{border-width:2px;}
+
 #particles-js {
   position: fixed;
   inset: 0;
