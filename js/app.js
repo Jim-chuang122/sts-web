@@ -1053,6 +1053,19 @@ function applySettingsToUI() {
   if (partBtn) {
     partBtn.textContent = gameSettings.particles ? getText('set-part-on') : getText('set-part-off');
   }
+
+  // ── 無障礙：大字體 / 高對比 ──
+  const lang = gameSettings.lang || 'zh-TW';
+  const onLabel = lang === 'en' ? 'On' : '開啟';
+  const offLabel = lang === 'en' ? 'Off' : '關閉';
+
+  const largeBtn = document.getElementById('set-large-btn');
+  if (largeBtn) largeBtn.textContent = gameSettings.largeText ? onLabel : offLabel;
+  const contrastBtn = document.getElementById('set-contrast-btn');
+  if (contrastBtn) contrastBtn.textContent = gameSettings.highContrast ? onLabel : offLabel;
+
+  document.body.classList.toggle('large-text', !!gameSettings.largeText);
+  document.body.classList.toggle('high-contrast', !!gameSettings.highContrast);
 }
 
 // 修改你的初始化函式，確保一開網頁就載入正確語言
@@ -1093,6 +1106,16 @@ function toggleMuteFromSettings() {
 
 function toggleParticles() {
   gameSettings.particles = !gameSettings.particles;
+  applySettingsToUI();
+}
+
+function toggleLargeText() {
+  gameSettings.largeText = !gameSettings.largeText;
+  applySettingsToUI();
+}
+
+function toggleHighContrast() {
+  gameSettings.highContrast = !gameSettings.highContrast;
   applySettingsToUI();
 }
 
@@ -1183,7 +1206,7 @@ let startTs=0;
 const TIPS=['💡 頭部直立，眼睛平視螢幕','💡 肩膀向後放鬆，不要聳肩','💡 下巴微收，避免頸部前傾','💡 腰背挺直，保持自然弧度','💡 兩肩保持水平，不要歪斜','💡 深呼吸，放鬆全身肌肉'];
 
 /* ── GAME SETTINGS ── */
-let gameSettings = { mute: false, particles: true };
+let gameSettings = { mute: false, particles: true, largeText: false, highContrast: false };
 
 /* ── AUDIO ── */
 let actx=null, bgmId=null, isMuted=false, bgmBeat=0;
@@ -2674,7 +2697,7 @@ function trunkScoreCalculate(trunkMax) {
   } else if (trunkMax >= 35) {
     return 30;
   } else {
-    return 30 + (35 - trunkMax) * (69 / 19);
+        return 30 + (35 - trunkMax) * (69 / 19);
   }
 }
 
