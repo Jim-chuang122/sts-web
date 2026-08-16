@@ -357,8 +357,18 @@
       <span style="font-size:.9em; font-weight:700; color:var(--text);" id="lbl-set-part" data-i18n="lbl-set-part">背景粒子特效</span>
       <button id="set-part-btn" class="btn btn-ghost" style="padding:6px 14px; font-size:.8em;" onclick="toggleParticles()" data-i18n="set-part-on">開啟</button>
     </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:.9em; font-weight:700; color:var(--text);">大字體模式</span>
+      <button id="set-large-btn" class="btn btn-ghost" style="padding:6px 14px; font-size:.8em;" onclick="toggleLargeText()">關閉</button>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:.9em; font-weight:700; color:var(--text);">高對比模式</span>
+      <button id="set-contrast-btn" class="btn btn-ghost" style="padding:6px 14px; font-size:.8em;" onclick="toggleHighContrast()">關閉</button>
+    </div>
   </div>
-  
+
   <button class="btn btn-ghost" onclick="closeSettings();startTour(true)">🧭 重新查看新手導覽</button>
   <button class="btn btn-blue" id="set-back-btn" onclick="closeSettings();playSfx('click')" data-i18n="set-back-btn">確認並返回</button>
 </div>
