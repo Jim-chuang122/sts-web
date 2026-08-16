@@ -59,8 +59,8 @@ const TOUR_STEPS = [
     en: { icon:'🤳', title:'Phone Camera (Beta)', desc:'No webcam? Scan a QR code to use your phone as the detection camera instead.' } },
 
   { target: '#nav-settings',
-    zh: { icon:'⚙️', title:'遊戲設定', desc:'這裡可以切換中英文介面、開關遊戲音效與背景粒子特效。' },
-    en: { icon:'⚙️', title:'Settings', desc:'Switch language, toggle sound effects, and toggle the background particle effect.' } },
+    zh: { icon:'⚙️', title:'遊戲設定', desc:'這裡可以切換中英文介面、開關音效與背景粒子特效，也有「大字體」「高對比」等無障礙選項可以開啟。' },
+    en: { icon:'⚙️', title:'Settings', desc:'Switch language, toggle sound and particles, and turn on accessibility options like large text and high contrast.' } },
 
   { target: '#nav-contact',
     zh: { icon:'✉️', title:'聯絡我們', desc:'有任何建議、問題或錯誤回報，都可以透過這裡直接留言給我們。' },
