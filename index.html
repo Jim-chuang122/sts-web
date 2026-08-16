@@ -16,17 +16,18 @@
 
 <div id="coin-display">🪙 <span id="coin-count">0</span></div>
 <div id="sys-top-right">
-  <button class="icon-btn menu-only-icon" onclick="showSignIn()" data-i18n-attr="title:title-signin">📅<div id="sign-in-dot" class="red-dot"></div></button>
-  <button class="icon-btn menu-only-icon" onclick="openQuestsScreen()" data-i18n-attr="title:title-quests">🎯<div id="quest-dot" class="red-dot"></div></button>
-  <button class="icon-btn menu-only-icon" onclick="openAchievementsScreen()" data-i18n-attr="title:title-achievements">🏅</button>
-  <button class="icon-btn menu-only-icon" onclick="openChallengeScreen()" data-i18n-attr="title:title-challenge">🤝</button>
-  <button class="icon-btn menu-only-icon" onclick="openLegalOverlay('view')" data-i18n-attr="title:title-legal">🔒</button>
-  <button class="icon-btn menu-only-icon" onclick="goTo('scr-shop');playSfx('click');renderShop()" data-i18n-attr="title:title-shop">🛒</button>
-  <button class="icon-btn menu-only-icon" onclick="goTo('scr-board');playSfx('click');renderBoard()" data-i18n-attr="title:title-board">🏆</button>
-  <button class="icon-btn menu-only-icon" onclick="goTutorial();playSfx('click')" data-i18n-attr="title:title-tutorial">📜</button>
-  <button class="icon-btn menu-only-icon" onclick="openContact();sfxClick()" title="聯絡我們">✉️</button>
+  <button class="icon-btn menu-only-icon" id="nav-tour-guide" onclick="startTour(true)" title="新手導覽">🧭</button>
+  <button class="icon-btn menu-only-icon" id="nav-signin" onclick="showSignIn()" data-i18n-attr="title:title-signin">📅<div id="sign-in-dot" class="red-dot"></div></button>
+  <button class="icon-btn menu-only-icon" id="nav-quests" onclick="openQuestsScreen()" data-i18n-attr="title:title-quests">🎯<div id="quest-dot" class="red-dot"></div></button>
+  <button class="icon-btn menu-only-icon" id="nav-achievements" onclick="openAchievementsScreen()" data-i18n-attr="title:title-achievements">🏅</button>
+  <button class="icon-btn menu-only-icon" id="nav-challenge" onclick="openChallengeScreen()" data-i18n-attr="title:title-challenge">🤝</button>
+  <button class="icon-btn menu-only-icon" id="nav-legal" onclick="openLegalOverlay('view')" data-i18n-attr="title:title-legal">🔒</button>
+  <button class="icon-btn menu-only-icon" id="nav-shop" onclick="goTo('scr-shop');playSfx('click');renderShop()" data-i18n-attr="title:title-shop">🛒</button>
+  <button class="icon-btn menu-only-icon" id="nav-board" onclick="goTo('scr-board');playSfx('click');renderBoard()" data-i18n-attr="title:title-board">🏆</button>
+  <button class="icon-btn menu-only-icon" id="nav-tutorial" onclick="goTutorial();playSfx('click')" data-i18n-attr="title:title-tutorial">📜</button>
+  <button class="icon-btn menu-only-icon" id="nav-contact" onclick="openContact();sfxClick()" title="聯絡我們">✉️</button>
   <button class="icon-btn menu-only-icon" id="phonecam-btn" onclick="openPhoneCamPairing();playSfx('click')" title="使用手機鏡頭（測試版）">🤳<div id="phonecam-dot" class="red-dot" style="display:none"></div></button>
-  <button class="icon-btn menu-only-icon" onclick="openSettings();playSfx('click')" data-i18n-attr="title:title-settings">⚙️</button>
+  <button class="icon-btn menu-only-icon" id="nav-settings" onclick="openSettings();playSfx('click')" data-i18n-attr="title:title-settings">⚙️</button>
 </div>
 
 
@@ -63,8 +64,8 @@
       </div>
     </div>
     <div class="menu-btns">
-      <button class="btn btn-blue" onclick="goTo('scr-chars');playSfx('click')" data-i18n="menu-btn-start">開始遊戲</button>
-      <button class="btn btn-green" onclick="watchAdMock(null, '廣告播放中...')" data-i18n="menu-btn-ad">看廣告領 500 🪙</button>
+      <button class="btn btn-blue" id="btn-start-game" onclick="goTo('scr-chars');playSfx('click')" data-i18n="menu-btn-start">開始遊戲</button>
+      <button class="btn btn-green" id="btn-watch-ad" onclick="watchAdMock(null, '廣告播放中...')" data-i18n="menu-btn-ad">看廣告領 500 🪙</button>
     </div>
     <div class="legal-footer-link" onclick="openLegalOverlay('view')" data-i18n="menu-legal-footer">🔒 隱私權政策・攝影機使用說明・運動安全提醒</div>
   </div>
@@ -358,6 +359,7 @@
     </div>
   </div>
   
+  <button class="btn btn-ghost" onclick="closeSettings();startTour(true)">🧭 重新查看新手導覽</button>
   <button class="btn btn-blue" id="set-back-btn" onclick="closeSettings();playSfx('click')" data-i18n="set-back-btn">確認並返回</button>
 </div>
 
@@ -453,6 +455,7 @@
 <script src="js/app.js"></script>
 <script src="js/social.js"></script>
 <script src="js/legal.js"></script>
+<script src="js/tour.js"></script>
 <div id="ov-contact" class="overlay-modal" style="display: none;">
   <div class="scr-title" style="margin-bottom:16px;">✉️ 聯絡<span>我們</span></div>
   
