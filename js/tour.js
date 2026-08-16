@@ -191,9 +191,13 @@ function startTour(force) {
   const mask = document.createElement('div'); mask.id = 'tour-mask';
   const spotlight = document.createElement('div'); spotlight.id = 'tour-spotlight';
   const card = document.createElement('div'); card.id = 'tour-card';
-  document.body.appendChild(mask);
-  document.body.appendChild(spotlight);
-  document.body.appendChild(card);
+  // Appended to <html>, not <body>: this page sets body{zoom:1.5}, and zoom
+  // rescales position:fixed descendants of the zoomed element too. Attaching
+  // to documentElement keeps our fixed-position overlay in real viewport
+  // pixels so it lines up with getBoundingClientRect() of the (zoomed) targets.
+  document.documentElement.appendChild(mask);
+  document.documentElement.appendChild(spotlight);
+  document.documentElement.appendChild(card);
 
   document.addEventListener('keydown', tourKeyHandler);
   if (typeof playSfx === 'function') { try { playSfx('click'); } catch (e) {} }
