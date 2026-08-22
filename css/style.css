@@ -121,6 +121,73 @@ body.high-contrast .char-card,
 body.high-contrast .mode-card,
 body.high-contrast .diff-card{border-width:2px;}
 
+/* ── 設定開關：滑塊樣式 ──
+   用 <button role="switch"> 而不是 checkbox，鍵盤 Enter/Space 就能切換，
+   螢幕報讀軟體也讀得出開關狀態（aria-checked 由 JS 同步）。 */
+.switch{
+  position:relative; flex:0 0 auto;
+  width:52px; height:28px; padding:0;
+  border-radius:999px; cursor:pointer;
+  background:var(--card); border:1.5px solid var(--border);
+  transition:background .22s ease, border-color .22s ease;
+}
+.switch::after{
+  content:''; position:absolute; top:50%; left:3px;
+  width:19px; height:19px; border-radius:50%;
+  background:var(--dim); transform:translateY(-50%);
+  transition:left .22s ease, background .22s ease;
+}
+.switch:hover{ border-color:var(--blue); }
+.switch.on{ background:var(--blue); border-color:var(--blue2); }
+.switch.on::after{ left:calc(100% - 22px); background:var(--white); }
+.switch:focus-visible{ outline:2px solid var(--bluef); outline-offset:2px; }
+
+/* 高對比：實心黑底 + 粗白框，滑塊本身也要看得出開關 */
+body.high-contrast .switch{ border-width:2px; background:#000; }
+body.high-contrast .switch::after{ background:#8A8A8A; }
+body.high-contrast .switch.on{ background:var(--blue); }
+body.high-contrast .switch.on::after{ background:#FFF; }
+
+.set-row{display:flex; justify-content:space-between; align-items:center; gap:14px;}
+.set-row-label{font-size:.9em; font-weight:700; color:var(--text);}
+
+/* ── 好友系統 ── */
+.friend-item{
+  display:flex; align-items:center; gap:10px;
+  background:var(--card); border:1.5px solid var(--border);
+  border-radius:12px; padding:10px 12px;
+}
+.friend-avatar{
+  flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--card2); border:1.5px solid var(--border);
+  font-weight:900; font-size:.95em; color:var(--blue2);
+}
+.friend-main{flex:1 1 auto; min-width:0;}
+.friend-name{font-weight:800; font-size:.92em; color:var(--white);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.friend-sub{font-size:.72em; color:var(--dim); margin-top:2px;}
+.friend-actions{flex:0 0 auto; display:flex; gap:6px;}
+.friend-mini-btn{
+  border:1.5px solid var(--border); background:var(--card2); color:var(--text);
+  border-radius:8px; padding:5px 10px; font-size:.72em; font-weight:700; cursor:pointer;
+  transition:border-color .18s, color .18s;
+}
+.friend-mini-btn:hover{border-color:var(--blue); color:var(--blue2);}
+.friend-mini-btn.danger:hover{border-color:var(--red); color:var(--red);}
+.friend-rank{
+  flex:0 0 auto; width:26px; text-align:center;
+  font-weight:900; font-size:.9em; color:var(--dim);
+}
+.friend-item.is-me{border-color:var(--blue2); background:rgba(30,111,255,.10);}
+.friend-empty{
+  text-align:center; color:var(--dim); font-size:.82em;
+  padding:26px 10px; line-height:1.7;
+}
+body.high-contrast .friend-item,
+body.high-contrast .friend-avatar,
+body.high-contrast .friend-mini-btn{border-width:2px;}
+
 #particles-js {
   position: fixed;
   inset: 0;
@@ -156,6 +223,10 @@ body.high-contrast .diff-card{border-width:2px;}
   display: flex;
   gap: 12px;
   z-index: 999;
+  /* 圖示數量變多後，窄螢幕或大字體模式下要能換行，不然會被推出畫面外 */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100vw - 32px);
 }
 .icon-btn {
   background: rgba(15, 30, 54, 0.85);
