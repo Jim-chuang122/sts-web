@@ -188,6 +188,9 @@ body.high-contrast .friend-item,
 body.high-contrast .friend-avatar,
 body.high-contrast .friend-mini-btn{border-width:2px;}
 
+/* 好友視窗內容較高，預留頂部空間避免壓到右上角圖示列，超出時可捲動 */
+#ov-friends{padding:96px 16px 24px; overflow-y:auto;}
+
 #particles-js {
   position: fixed;
   inset: 0;
