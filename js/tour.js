@@ -34,7 +34,11 @@ const TOUR_STEPS = [
     zh: { icon:'🏅', title:'成就徽章', desc:'達成特定里程碑（例如連續好姿勢、總遊玩次數）會解鎖專屬徽章。' },
     en: { icon:'🏅', title:'Achievements', desc:'Unlock badges by hitting milestones like posture streaks or total play count.' } },
 
-  { target: '#nav-challenge',
+  
+  { target: '#nav-friends',
+    zh: { icon:'👥', title:'我的好友', desc:'用好友碼互相加好友，可以看到彼此的最佳成績、對戰勝負與排行榜，也能直接向好友發起挑戰。' },
+    en: { icon:'👥', title:'My Friends', desc:'Add friends with friend codes to compare best scores, track head-to-head records, and challenge them directly.' } },
+{ target: '#nav-challenge',
     zh: { icon:'🤝', title:'好友挑戰', desc:'遊戲結束後可以產生挑戰碼分享給朋友，邀請他們來比拚分數。' },
     en: { icon:'🤝', title:'Friend Challenge', desc:'After a round, generate a challenge code to share and compete with friends.' } },
 
