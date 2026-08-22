@@ -1045,25 +1045,22 @@ function changeLanguageFromSettings(val) {
 
 // 覆寫或整合你的 applySettingsToUI 函式
 function applySettingsToUI() {
-  const muteBtn = document.getElementById('set-mute-btn');
-  if (muteBtn) {
-    muteBtn.textContent = gameSettings.mute ? getText('set-mute-off') : getText('set-mute-on');
-  }
-  const partBtn = document.getElementById('set-part-btn');
-  if (partBtn) {
-    partBtn.textContent = gameSettings.particles ? getText('set-part-on') : getText('set-part-off');
-  }
+  // ── 設定開關：滑塊狀態同步 ──
+  // 滑塊只有「開/關」兩態，狀態同時寫進 class（給 CSS）與 aria-checked（給螢幕報讀）。
+  const setSwitch = (id, isOn) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('on', !!isOn);
+    el.setAttribute('aria-checked', isOn ? 'true' : 'false');
+  };
+
+  // 注意：gameSettings.mute 為 true 代表「靜音」，所以滑塊開啟＝沒有靜音。
+  setSwitch('set-mute-sw', !gameSettings.mute);
+  setSwitch('set-part-sw', gameSettings.particles);
+  setSwitch('set-large-sw', gameSettings.largeText);
+  setSwitch('set-contrast-sw', gameSettings.highContrast);
 
   // ── 無障礙：大字體 / 高對比 ──
-  const lang = gameSettings.lang || 'zh-TW';
-  const onLabel = lang === 'en' ? 'On' : '開啟';
-  const offLabel = lang === 'en' ? 'Off' : '關閉';
-
-  const largeBtn = document.getElementById('set-large-btn');
-  if (largeBtn) largeBtn.textContent = gameSettings.largeText ? onLabel : offLabel;
-  const contrastBtn = document.getElementById('set-contrast-btn');
-  if (contrastBtn) contrastBtn.textContent = gameSettings.highContrast ? onLabel : offLabel;
-
   document.body.classList.toggle('large-text', !!gameSettings.largeText);
   document.body.classList.toggle('high-contrast', !!gameSettings.highContrast);
 }
