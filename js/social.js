@@ -55,6 +55,10 @@ function getMonday(d) {
 
 function clearActiveChallenge() { activeChallenge = null; }
 
+/* 供好友系統直接指定挑戰對象（好友名單的「挑戰」按鈕） */
+function setActiveChallenge(payload) { activeChallenge = payload; }
+window.setActiveChallenge = setActiveChallenge;
+
 /* ── 統一入口：確保任務/賽季狀態依日期重置 ── */
 function ensureSocialState() {
   const s = loadSave();
@@ -119,6 +123,13 @@ const ACHIEVEMENTS = [
   { id: 'challenger_win5', key: 'ach-challenger_win5', name: '常勝軍', desc: '贏得5次好友挑戰', icon: '🏆', tier: 'gold', reward: 400, target: 5, val: (st) => st.challengesWon },
   { id: 'season_1', key: 'ach-season_1', name: '賽季先鋒', desc: '參與第一個賽季排行', icon: '🌟', tier: 'bronze', reward: 100, target: 1, val: (st) => st.seasonsParticipated },
   { id: 'season_champ', key: 'ach-season_champ', name: '賽季冠軍', desc: '賽季結算時奪得本機排行榜第一', icon: '👑', tier: 'gold', reward: 500, target: 1, val: (st) => st.seasonWins },
+  { id: 'friend_1', key: 'ach-friend_1', name: '交到朋友了', desc: '加入第一位好友', icon: '👥', tier: 'bronze', reward: 80, target: 1, val: (st, s) => (s.friends || []).length },
+  { id: 'friend_5', key: 'ach-friend_5', name: '人氣王', desc: '好友名單累積5位好友', icon: '🎉', tier: 'silver', reward: 250, target: 5, val: (st, s) => (s.friends || []).length },
+  { id: 'friend_beat_all', key: 'ach-friend_beat_all', name: '好友之巔', desc: '最佳分數超越名單上所有好友', icon: '🥇', tier: 'gold', reward: 450, target: 1, val: (st, s) => {
+      const fs = s.friends || [];
+      if (!fs.length) return 0;
+      return fs.every(f => (st.bestScore || 0) > (f.best || 0)) ? 1 : 0;
+    } },
 ];
 
 function checkAchievements() {
@@ -620,7 +631,17 @@ function onGameEnd(info) {
     challengeMsg = challengeWon
       ? `🎉 ${t('chal-won-msg1', '你以')} ${info.score} ${t('chal-won-msg2', '分打敗了「')}${activeChallenge.n}${t('chal-won-msg3', '」的')} ${activeChallenge.s} ${t('score-unit', '分')}！`
       : `💦 ${t('chal-lost-msg1', '惜敗！差')} ${activeChallenge.s - info.score} ${t('chal-lost-msg2', '分輸給「')}${activeChallenge.n}${t('chal-lost-msg3', '」，再接再厲！')}`;
+
+    // 把這場勝負記到好友名單對應的那位好友身上
+    if (typeof window.recordFriendMatch === 'function') {
+      window.recordFriendMatch(activeChallenge, challengeWon);
+    }
     activeChallenge = null;
+  }
+
+  // 更新自己的好友資料快照，分享出去的好友碼才會帶著最新成績
+  if (typeof window.refreshMyFriendProfile === 'function') {
+    window.refreshMyFriendProfile(info);
   }
 
   writeSave(s);
